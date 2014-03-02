@@ -1,28 +1,28 @@
-package Cube;
+package Graphics;
 
 /**
  * 3D vector
  *
  * @author kenny cason http://www.ken-soft.com 2009 January 8
  */
-public class Point {
+public class Point3D {
 
     private double[] p;
 
-    public Point(double x, double y, double z) {
+    public Point3D(double x, double y, double z) {
         p = new double[3];
         p[0] = x;
         p[1] = y;
         p[2] = z;
     }
 
-    public Point(Point p) {
+    public Point3D(Point3D p) {
         this.p[0] = p.getX();
         this.p[1] = p.getY();
         this.p[2] = p.getZ();
     }
 
-    public Point(double[] podouble) {
+    public Point3D(double[] podouble) {
         p = podouble;
     }
 
@@ -30,7 +30,7 @@ public class Point {
         p = podouble;
     }
 
-    public void set(Point p) {
+    public void set(Point3D p) {
         this.p[0] = p.getX();
         this.p[1] = p.getY();
         this.p[2] = p.getZ();
@@ -64,7 +64,7 @@ public class Point {
         return p[2];
     }
 
-    public void vectorMultiply(Point point) {
+    public void vectorMultiply(Point3D point) {
         p[0] = p[0] * point.getX();
         p[1] = p[1] * point.getY();
         p[2] = p[2] * point.getZ();

@@ -1,36 +1,36 @@
-package Cube;
+package Graphics;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 
-public class CubeFace {
+public class Face {
 
     private Color lineColor;
 
     public Color faceColor;
 
-    private Point[] points;
+    private Point3D[] points;
 
-    public CubeFace(Point[] points) {
-        faceColor = Color.WHITE;
-        lineColor = new Color(255, 255, 255, 20);
-        this.points = new Point[points.length];
+    public Face(Point3D[] points) {
+        faceColor = new Color(255,255,255,0);
+        lineColor = new Color(200, 200, 200, 255);
+        this.points = new Point3D[points.length];
         for (int i = 0; i < points.length; i++) {
             this.points[i] = points[i];
         }
     }
 
-    public Point[] getPoints() {
+    public Point3D[] getPoints() {
         return points;
     }
 
-    public void setPoints(Point[] points) {
+    public void setPoints(Point3D[] points) {
         this.points = points;
     }
 
-    public void drawWires(Graphics _g, Point axisOffset) {
+    public void drawWires(Graphics _g, Point3D axisOffset) {
         Graphics2D g = (Graphics2D) _g;
         g.setColor(lineColor);
         for (int i = 0; i < points.length - 1; i++) {
@@ -41,18 +41,14 @@ public class CubeFace {
                 (int) (axisOffset.getX() + points[0].getX()), (int) (axisOffset.getY() + points[0].getY()));
     }
 
-    public void drawColoredCube(Graphics _g, Point axisOffset) {
+    public void drawColoredCube(Graphics _g, Point3D axisOffset) {
         Graphics2D g = (Graphics2D) _g;
-        // I didn't feel like writing my own filly polygon method :P so I'm using JAVA's. sorry! 
-        // The reason I didn't originally use Java polyon was because I wanted to experiment with making the algorithms myself
-        // inlcuding managing z-indexes etc.
         Polygon p = new Polygon();
         for (int i = 0; i < points.length; i++) {
             p.addPoint((int) (axisOffset.getX() + points[i].getX()),
                     (int) (axisOffset.getY() + points[i].getY()));
         }
         g.setColor(faceColor);
-        g.fillPolygon(p);
         drawWires(g, axisOffset);
     }
 

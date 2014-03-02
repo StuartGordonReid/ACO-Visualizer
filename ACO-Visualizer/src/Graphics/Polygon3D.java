@@ -1,4 +1,4 @@
-package Cube;
+package Graphics;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,13 +8,13 @@ import java.awt.Graphics;
  *
  * @author kenny cason http://www.ken-soft.com 2009 June
  */
-public interface Polygon {
+public interface Polygon3D {
 
-    public void renderColored(Graphics _g, Point axis);
+    public void renderColored(Graphics _g, Point3D axis);
 
-    public void renderWired(Graphics _g, Point axis);
+    public void renderWired(Graphics _g, Point3D axis);
 
-    public void setAxisOffset(Point point);
+    public void setAxisOffset(Point3D point);
 
     public void setAxisOffset(double x, double y, double z);
 
@@ -24,11 +24,11 @@ public interface Polygon {
 
     public void setZAxisOffset(double z);
 
-    public Point getAxisOffset();
+    public Point3D getAxisOffset();
 
-    public CubeFace[] getFaces();
+    public Face[] getFaces();
 
-    public void setFaces(CubeFace[] faces);
+    public void setFaces(Face[] faces);
 
     public double getXAxisOffset();
 
@@ -36,9 +36,9 @@ public interface Polygon {
 
     public double getZAxisOffset();
 
-    public Point[] getPoints();
+    public Point3D[] getPoints();
 
-    public void setPoints(Point[] points);
+    public void setPoints(Point3D[] points);
 
     public void setXWidth(double xWidth);
 

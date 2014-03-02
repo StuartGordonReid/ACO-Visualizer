@@ -1,4 +1,4 @@
-package Cube;
+package Graphics;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,15 +9,15 @@ import java.awt.Graphics2D;
  *
  * @author kenny cason http://www.ken-soft.com 2009 June
  */
-public class Rectangle implements Polygon {
+public class Rectangle3D implements Polygon3D {
 
     public short x;  // some vars for id purposes. i.e. location in a 3D puzzle
     public short y;
     public short z;
 
-    private Point[] points;
+    private Point3D[] points;
 
-    private CubeFace[] faces;
+    private Face[] faces;
 
     private double xWidth;
 
@@ -25,28 +25,28 @@ public class Rectangle implements Polygon {
 
     private double zWidth;
 
-    private Point axisOffset;
+    private Point3D axisOffset;
 
     private Transformation matOps;
 
-    public Rectangle() {
-        init(0, 0, 0, new Point(0, 0, 0));
+    public Rectangle3D() {
+        init(0, 0, 0, new Point3D(0, 0, 0));
     }
 
-    public Rectangle(double xWidth, double yWidth, double zWidth) {
-        init(xWidth, yWidth, zWidth, new Point(0, 0, 0));
+    public Rectangle3D(double xWidth, double yWidth, double zWidth) {
+        init(xWidth, yWidth, zWidth, new Point3D(0, 0, 0));
     }
 
-    public Rectangle(double xWidth, double yWidth, double zWidth,
-            Point axisOffset) {
+    public Rectangle3D(double xWidth, double yWidth, double zWidth,
+            Point3D axisOffset) {
         init(xWidth, yWidth, zWidth, axisOffset);
     }
 
-    public Rectangle(double width, Point axisOffset) {
+    public Rectangle3D(double width, Point3D axisOffset) {
         init(width, width, width, axisOffset);
     }
 
-    private void init(double xWidth, double yWidth, double zWidth, Point axisOffset) {
+    private void init(double xWidth, double yWidth, double zWidth, Point3D axisOffset) {
         matOps = new Transformation();
         this.xWidth = xWidth;
         this.yWidth = yWidth;
@@ -56,33 +56,33 @@ public class Rectangle implements Polygon {
     }
 
     private void constructCube() {
-        points = new Point[8];
+        points = new Point3D[8];
 
         double x = xWidth / 2;
         double y = yWidth / 2;
         double z = zWidth / 2;
 
-        points[0] = new Point(-x, -y, -z);
-        points[1] = new Point(-x, -y, z);
-        points[2] = new Point(x, -y, z);
-        points[3] = new Point(x, -y, -z);
-        points[4] = new Point(-x, y, -z);
-        points[5] = new Point(-x, y, z);
-        points[6] = new Point(x, y, z);
-        points[7] = new Point(x, y, -z);
+        points[0] = new Point3D(-x, -y, -z);
+        points[1] = new Point3D(-x, -y, z);
+        points[2] = new Point3D(x, -y, z);
+        points[3] = new Point3D(x, -y, -z);
+        points[4] = new Point3D(-x, y, -z);
+        points[5] = new Point3D(-x, y, z);
+        points[6] = new Point3D(x, y, z);
+        points[7] = new Point3D(x, y, -z);
 
-        faces = new CubeFace[6];
-        faces[0] = new CubeFace(new Point[]{points[0], points[1], points[2], points[3]});
-        faces[1] = new CubeFace(new Point[]{points[0], points[1], points[5], points[4]});
-        faces[2] = new CubeFace(new Point[]{points[1], points[2], points[6], points[5]});
-        faces[3] = new CubeFace(new Point[]{points[2], points[3], points[7], points[6]});
-        faces[4] = new CubeFace(new Point[]{points[3], points[0], points[4], points[7]});
-        faces[5] = new CubeFace(new Point[]{points[4], points[5], points[6], points[7]});
+        faces = new Face[6];
+        faces[0] = new Face(new Point3D[]{points[0], points[1], points[2], points[3]});
+        faces[1] = new Face(new Point3D[]{points[0], points[1], points[5], points[4]});
+        faces[2] = new Face(new Point3D[]{points[1], points[2], points[6], points[5]});
+        faces[3] = new Face(new Point3D[]{points[2], points[3], points[7], points[6]});
+        faces[4] = new Face(new Point3D[]{points[3], points[0], points[4], points[7]});
+        faces[5] = new Face(new Point3D[]{points[4], points[5], points[6], points[7]});
 
     }
 
-    public void renderColored(Graphics _g, Point axis) {
-        Point totOffset = new Point(axis.getX() + axisOffset.getX(), axis.getY() + axisOffset.getY(), axis.getZ() + axisOffset.getZ());
+    public void renderColored(Graphics _g, Point3D axis) {
+        Point3D totOffset = new Point3D(axis.getX() + axisOffset.getX(), axis.getY() + axisOffset.getY(), axis.getZ() + axisOffset.getZ());
 
         /*	
          for(int i = 0; i < faces.length; i++) {
@@ -95,8 +95,8 @@ public class Rectangle implements Polygon {
         }
     }
 
-    public void renderWired(Graphics _g, Point axis) {
-        Point totOffset = new Point(axis.getX() + axisOffset.getX(), axis.getY() + axisOffset.getY(), axis.getZ() + axisOffset.getZ());
+    public void renderWired(Graphics _g, Point3D axis) {
+        Point3D totOffset = new Point3D(axis.getX() + axisOffset.getX(), axis.getY() + axisOffset.getY(), axis.getZ() + axisOffset.getZ());
 
         Graphics2D g = (Graphics2D) _g;
         //	g.drawLine((int)axis.getX(), (int)axis.getY(), (int)totOffset.getX(), (int)totOffset.getY());
@@ -107,7 +107,7 @@ public class Rectangle implements Polygon {
     }
 
     public void setAxisOffset(double x, double y, double z) {
-        axisOffset = new Point(x, y, z);
+        axisOffset = new Point3D(x, y, z);
     }
 
     public void setXAxisOffset(double x) {
@@ -123,13 +123,13 @@ public class Rectangle implements Polygon {
         axisOffset.setZ(z);
     }
 
-    public void setAxisOffset(Point p) {
+    public void setAxisOffset(Point3D p) {
         axisOffset.setX(p.getX());
         axisOffset.setY(p.getY());
         axisOffset.setZ(p.getZ());
     }
 
-    public Point getAxisOffset() {
+    public Point3D getAxisOffset() {
         return axisOffset;
     }
 
@@ -145,11 +145,11 @@ public class Rectangle implements Polygon {
         return axisOffset.getZ();
     }
 
-    public Point[] getPoints() {
+    public Point3D[] getPoints() {
         return points;
     }
 
-    public void setPoints(Point[] points) {
+    public void setPoints(Point3D[] points) {
         this.points = points;
     }
 
@@ -177,11 +177,11 @@ public class Rectangle implements Polygon {
         return zWidth;
     }
 
-    public CubeFace[] getFaces() {
+    public Face[] getFaces() {
         return faces;
     }
 
-    public void setFaces(CubeFace[] faces) {
+    public void setFaces(Face[] faces) {
         this.faces = faces;
     }
 

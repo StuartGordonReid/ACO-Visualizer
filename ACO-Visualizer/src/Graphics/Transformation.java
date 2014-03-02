@@ -1,4 +1,4 @@
-package Cube;
+package Graphics;
 
 /**
  * this class contains transformation functions for a 3D vector
@@ -17,7 +17,7 @@ public class Transformation {
      * @param theta
      * @return
      */
-    public Point rotateZ(Point point, double theta) {
+    public Point3D rotateZ(Point3D point, double theta) {
         double[] p = new double[point.get().length];
         theta = Math.toRadians(theta);
         p[0] = point.getX() * Math.cos(theta) + point.getY() * -Math.sin(theta);
@@ -34,7 +34,7 @@ public class Transformation {
      * @param theta
      * @return
      */
-    public Point rotateY(Point point, double theta) {
+    public Point3D rotateY(Point3D point, double theta) {
         double[] p = new double[point.get().length];
         theta = Math.toRadians(theta);
         p[0] = point.getX() * Math.cos(theta) + point.getZ() * Math.sin(theta);
@@ -51,7 +51,7 @@ public class Transformation {
      * @param theta
      * @return
      */
-    public Point rotateX(Point point, double theta) {
+    public Point3D rotateX(Point3D point, double theta) {
         double[] p = new double[point.get().length];
         theta = Math.toRadians(theta);
         p[0] = point.getX();
@@ -83,9 +83,9 @@ public class Transformation {
      * @param theta
      * @return
      */
-    public Point rotateAroundVector(Point point, Point vect, double theta) {
+    public Point3D rotateAroundVector(Point3D point, Point3D vect, double theta) {
         double[] p = new double[point.get().length];
-        Point unit = getUnitVector(vect);
+        Point3D unit = getUnitVector(vect);
         theta = Math.toRadians(theta);
         double q0 = Math.cos(theta / 2);
         double q1 = Math.sin(theta / 2) * unit.getX();
@@ -105,7 +105,7 @@ public class Transformation {
         return point;
     }
 
-    public Point getUnitVector(Point point) {
+    public Point3D getUnitVector(Point3D point) {
         double[] p = new double[point.get().length];
 
         double d = Math.sqrt(point.getX() * point.getX() + point.getY() * point.getY() + point.getZ() * point.getZ());
@@ -113,7 +113,7 @@ public class Transformation {
         p[1] = point.getY() / d;
         p[2] = point.getZ() / d;
 
-        return new Point(p);
+        return new Point3D(p);
     }
 
     /**
@@ -123,8 +123,8 @@ public class Transformation {
      * @param v2
      * @return
      */
-    public Point cross(Point v1, Point v2) {
-        Point newVec = new Point(0, 0, 0);
+    public Point3D cross(Point3D v1, Point3D v2) {
+        Point3D newVec = new Point3D(0, 0, 0);
         newVec.setX(v1.getY() * v2.getZ() - v1.getZ() * v2.getY());
         newVec.setY(v1.getZ() * v2.getX() - v1.getX() * v2.getZ());
         newVec.setZ(v1.getX() * v2.getY() - v1.getY() * v2.getX());
@@ -137,7 +137,7 @@ public class Transformation {
      * @param _v
      * @return
      */
-    public double dot(Point v1, Point v2) {
+    public double dot(Point3D v1, Point3D v2) {
         double dot = 0;
         dot += (v1.getX() * v2.getX() + v1.getY() * v2.getY() + v1.getZ() * v2.getZ());
         return dot;
@@ -149,7 +149,7 @@ public class Transformation {
      * @param cameraLoc
      * @return
      */
-    public Point perspective3D(Point point, double[] cameraLoc) {
+    public Point3D perspective3D(Point3D point, double[] cameraLoc) {
         point.setX(point.getX() - cameraLoc[0]);
         point.setY(point.getY() - cameraLoc[1]);
         point.setZ(point.getZ() - cameraLoc[2]);

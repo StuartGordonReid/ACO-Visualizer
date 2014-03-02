@@ -5,3 +5,4 @@
 *.war
 *.ear
 /ACO-Visualizer/nbproject/private/
+/ACO-Visualizer/build/
