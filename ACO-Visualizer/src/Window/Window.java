@@ -16,7 +16,7 @@ public class Window extends JFrame {
     public JPanel heading, controller;
     public Matrix matrix;
     public Cube cube;
-    public int state = 2;
+    public int state = 1;
 
     public static void main(String args[]) {
         Window window = new Window();
@@ -47,7 +47,7 @@ public class Window extends JFrame {
             this.addKeyListener(keyListener);
         } else {
             matrix = new Matrix(32, 2, 2);
-            this.getContentPane().add(cube);
+            this.getContentPane().add(matrix);
         }
 
         JPanel jp3 = new JPanel();
